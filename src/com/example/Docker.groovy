@@ -15,4 +15,9 @@ class Docker implements Serializable {
             script.sh "docker push $imageName"
         }
     }
+    def deployToAWS(String AWS_HOST, String dockerCmd) {
+        script.sshagent(['awskey']) {
+            script.sh "ssh -o StrictHostKeyChecking=no ${AWS_HOST} ${dockerCmd}"
+        }
+    }
 }
